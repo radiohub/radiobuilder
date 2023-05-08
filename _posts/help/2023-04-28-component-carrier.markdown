@@ -29,7 +29,7 @@ signalOut = ComponentCarrier(freq, bw, level, snr, papr [, sweepFlag])
 | ---------------- | ----------------------------------------- | --------------- | -------------------------
 | `getPeakLevel()` | Get carrier peak level                    |                 |
 | `select()`       | Select signal(s) based on key-value pairs | key-value pairs <br/> (at least one pair) | `'frequency', freqVal` <br/> `'bw', bwVal` <br/> `'level', levelVal` <br/> `'snr', snrVal` <br/> `'papr', paprVal` |
-| `printOut()`     | Print signal properties                   | orientation (optional)    | `'h'` (default) <br/>  `'v'`
+| `printOut()`     | Print signal properties                   | [orientation]   | `'h'` (default) <br/>  `'v'`
 | `getFrequency()` | Get carrier frequency                     |                 |
 | `getBW()`        | Get occupied RF bandwidth                 |                 |
 | `getLevel()`     | Get carrier average or rms level          |                 |
@@ -93,7 +93,7 @@ signalOut.printOut('v')
 
 which prints out the following
 
-{% highlight tex %}
+<div class="language-matlab matlab-printout">  
 Freq [MHz]   BW [MHz]  Level [dBm]   SNR [dB]   PAPR [dB]  
   5250.0      160.0       -60.0        32.0        12.0    
   5250.0      160.0       -58.0        32.0        12.0    
@@ -101,7 +101,7 @@ Freq [MHz]   BW [MHz]  Level [dBm]   SNR [dB]   PAPR [dB]
   5250.0      160.0       -54.0        32.0        12.0    
   5250.0      160.0       -52.0        32.0        12.0    
   5250.0      160.0       -50.0        32.0        12.0   
-{% endhighlight %}
+</div>
 
 </details>
 
@@ -126,7 +126,7 @@ signalOut.printOut('v')
 
 which prints out the following
 
-{% highlight tex %}
+<div class="language-matlab matlab-printout">
 Freq [MHz]   BW [MHz]  Level [dBm]   SNR [dB]   PAPR [dB]  
   5250.0       20.0       -60.0        32.0        12.0    
   5250.0       20.0       -58.0        32.0        12.0    
@@ -140,7 +140,7 @@ Freq [MHz]   BW [MHz]  Level [dBm]   SNR [dB]   PAPR [dB]
   5250.0      160.0       -54.0        32.0        12.0    
   5250.0      160.0       -52.0        32.0        12.0    
   5250.0      160.0       -50.0        32.0        12.0   
-{% endhighlight %}
+</div>
 
 We can then select the 20 MHz power sweep and printout the results
 
@@ -150,7 +150,7 @@ signalOut.select('bw',Frequency(20e6)).printOut('v')
 
 which then prints out
 
-{% highlight tex %}
+<div class="language-matlab matlab-printout">
 Freq [MHz]   BW [MHz]  Level [dBm]   SNR [dB]   PAPR [dB]  
   5250.0       20.0       -60.0        32.0        12.0    
   5250.0       20.0       -58.0        32.0        12.0    
@@ -158,7 +158,7 @@ Freq [MHz]   BW [MHz]  Level [dBm]   SNR [dB]   PAPR [dB]
   5250.0       20.0       -54.0        32.0        12.0    
   5250.0       20.0       -52.0        32.0        12.0    
   5250.0       20.0       -50.0        32.0        12.0   
-{% endhighlight %}
+</div>
 
 </details>
 
