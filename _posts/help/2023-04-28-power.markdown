@@ -1,6 +1,6 @@
 ---
 title: "Power"
-layout: post
+layout: help
 categories: help classes
 slug: "power"
 permalink: "/:categories/:slug/"

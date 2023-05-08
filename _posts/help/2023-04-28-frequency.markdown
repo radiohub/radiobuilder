@@ -1,6 +1,6 @@
 ---
 title: "Frequency"
-layout: post
+layout: help
 categories: help classes
 slug: "frequency"
 permalink: "/:categories/:slug/"
@@ -29,6 +29,7 @@ freqOut = Frequency(freq [, unit] [, refFreq] [, sweepFlag])
 | `getRefFreq()` | Get occupied RF bandwidth        |             |
 | `getValue()`   | Get carrier average or rms level |             |
 {: .help-methods-table}
+
 
 ### Examples
 
