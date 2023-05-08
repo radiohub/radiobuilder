@@ -55,7 +55,7 @@ ans =
    -10
 </div>
 
-Convert to volts in dB
+Convert to volts in decibel scale
 
 {% highlight matlab %}
 p.convertTo('dbv').getValue
