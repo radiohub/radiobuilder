@@ -168,7 +168,7 @@ Freq [MHz]   BW [MHz]  Level [dBm]   SNR [dB]   PAPR [dB]
 [Ratio][ratio]  
 [Voltage][voltage]  
 
-[frequency]: {% post_url /help/2023-04-28-frequency %}  
-[power]: {% post_url /help/2023-04-28-power %}  
-[ratio]: {% post_url /help/2023-04-28-ratio %}  
-[voltage]: {% post_url /help/2023-04-28-voltage %}  
+[frequency]: {{site.baseurl}}{%post_url /help/2023-04-28-frequency %}  
+[power]: {{site.baseurl}}{%post_url /help/2023-04-28-power %}  
+[ratio]: {{site.baseurl}}{%post_url /help/2023-04-28-ratio %}  
+[voltage]: {{site.baseurl}}{%post_url /help/2023-04-28-voltage %}  
