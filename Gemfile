@@ -43,4 +43,4 @@ gem "kramdown-parser-gfm"
 gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
 # syoussef 5/7/2023: For remote themes on github pages
-gem "jekyll-remote-theme"
+# gem "jekyll-remote-theme"
