@@ -74,7 +74,7 @@ ans =
 Calculate the power level corresponding to 1mV across a 75ohm impedance
 
 {% highlight matlab %}
-Voltage(1*1e-3,'v').convertTo('dbm',75)
+Voltage(1e-3,'v').convertTo('dbm',75)
 {% endhighlight %}
 
 <div class="language-matlab matlab-printout">
