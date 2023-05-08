@@ -1,0 +1,341 @@
+
+//** Reset some basic elements **//
+body, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, hr,
+dl, dd, ol, ul, figure {
+  margin: 0;
+  padding: 0;
+}
+
+
+//** Basic styling **//
+body {
+  font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
+  color: $text-color;
+  background-color: $background-color;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+     -moz-font-feature-settings: "kern" 1;
+       -o-font-feature-settings: "kern" 1;
+          font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  counter-reset: figcounter;
+}
+
+
+//** Set `margin-bottom` to maintain vertical rhythm **//
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+ul, ol, dl,
+details, table,
+%vertical-rhythm {
+  margin-bottom: $spacing-unit/2.0;
+}
+
+
+//** `main` element **//
+main {
+  display: block; /* Default value of `display` of `main` element is 'inline' in IE 11. */
+}
+
+
+//** Images **//
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+
+//** Figures **//
+figure > img {
+  display: block;
+  margin-bottom: $spacing-unit/2.0;
+}
+
+figcaption {
+  font-size: $small-font-size;
+  text-align: center;
+  counter-increment: figcounter;
+}
+
+figcaption::before {
+  content: 'Figure ' counter(figcounter) '. ';
+  font-weight: $bold-font-weight
+}
+
+//** Lists **//
+ul, ol {
+  margin-left: $spacing-unit;
+}
+
+li {
+  list-style-type: circle;
+  > ul,
+  > ol {
+    margin-bottom: 0;
+  }
+}
+
+
+//** Headings **//
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $medium-font-weight;
+}
+
+
+//** Links **//
+a {
+  color: $brand-color;
+  text-decoration: none;
+  font-weight: $medium-font-weight;     // syoussef 4/28/2023: added
+
+  &:visited {
+    color: darken($brand-color, 25%);
+    // font-weight: $base-font-weight;
+  }
+
+  &:hover {
+    color: $text-color;
+    font-weight: $base-font-weight;     // syoussef 4/28/2023: added
+    text-decoration: underline;
+  }
+
+  .social-media-list &:hover {
+    text-decoration: none;
+
+    .username {
+      text-decoration: underline;
+    }
+  }
+}
+
+
+//** Blockquotes **//
+blockquote {
+  color: $grey-color;
+  border-left: 4px solid $grey-color-light;
+  padding-left: $spacing-unit / 2;
+  @include relative-font-size(1.125);
+  letter-spacing: -1px;
+  font-style: italic;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+//** Code formatting **//
+pre,
+code {
+  @include relative-font-size(1.00);            // syoussef 4/30/2023: changed from 0.9375
+  background-color: $code-background-color;     // syoussef 4/23/2023: changed
+  border: 1px solid $code-border-color;         // syoussef 4/23/2023: changed
+  border-radius: $code-border-raduis;           // syoussef 4/23/2023: added
+}
+
+// Inline code
+code {
+  padding: 1px 5px 2px 5px;                     // syoussef 4/24/2023: added bottom and left padding
+}
+
+// Preformatted code block
+pre {
+  //margin-top:  $spacing-unit/1.5;
+  //margin-bottom:  $spacing-unit/1.5;
+  padding: 8px 12px;
+  overflow-x: auto;
+
+  > code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+//** Collapsible **//
+// syoussef 4/29/2023: added
+details{
+  cursor: pointer;
+  background-color: $background-color;
+  border: 1px solid $code-border-color;
+  border-radius: $code-border-raduis;
+  box-shadow: 1px 1px 2px $grey-color-dark;
+  padding: $spacing-unit/3.0;
+  //margin-top: $spacing-unit/3.0;
+  //margin-bottom: $spacing-unit/3.0;
+}
+
+
+//** image formatting **//
+// syoussef 4/24/2023: added
+ .img-container {
+   display: flex;
+ }
+
+// One figure
+.img-css {
+  display: block;
+  background-color: $img-background-color;
+  padding: 10px;
+  border: 1px solid $img-border-color;
+  border-radius: $img-border-raduis;
+  margin-left: auto;
+  margin-right: auto;
+  //margin-top: $spacing-unit/1.5;
+  margin-bottom: $spacing-unit/2.0;
+  height: 46%;
+  width: 46%;
+}
+
+// Multiple figures
+// syoussef 4/25/2023 added
+// Usage (<div class="img-html" style="--size: 42%;">)
+.img-html {
+  display: flex;
+  background-color: $img-background-color;
+  padding: 10px 20px;
+  border: 1px solid $img-border-color;
+  border-radius: $img-border-raduis;
+  margin-left: auto;
+  margin-right: auto;
+  //margin-top: $spacing-unit/1.5;
+  margin-bottom: $spacing-unit/2.0;
+  width: var(--size, 42%);
+  height: var(--size, 42%);
+}
+
+
+//** Wrapper **//
+.wrapper {
+  max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
+  max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $spacing-unit;
+  padding-left: $spacing-unit;
+  @extend %clearfix;
+
+  @include media-query($on-laptop) {
+    max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
+    max-width:         calc(#{$content-width} - (#{$spacing-unit}));
+    padding-right: $spacing-unit / 2;
+    padding-left: $spacing-unit / 2;
+  }
+}
+
+
+//** Clearfix **//
+%clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+//** Icons **//
+.svg-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    fill: #{$grey-color};
+    padding-right: 5px;
+    vertical-align: text-top;
+}
+
+.social-media-list {
+  li + li {
+    padding-top: 5px;
+  }
+}
+
+
+//** Tables **//
+// syoussef 4/28/2023: updated //
+table {
+  color: #ffffff;
+  background-color: $background-color;
+  border: 1px solid $table-border-color;
+  border-collapse: collapse;
+  border-radius: 0px;
+  //margin-top: $spacing-unit/3.0;
+  //margin-bottom: $spacing-unit/1.0;
+  width: 100%;
+  text-align: $table-text-align;
+
+  tbody{
+  }
+
+  tr {
+    background-color: $background-color;
+    line-height: 20px;
+    &:nth-child(odd) {
+      background-color: lighten($background-color,1.5%);
+      border: $background-color;
+    }
+  }
+
+  th, td {
+    padding-top: ($spacing-unit/15);
+    padding-bottom: ($spacing-unit/15);
+    padding-left: ($spacing-unit/7.5);
+    padding-right: ($spacing-unit/7.5);
+  }
+
+  th {
+    background-color: $table-head-background-color;
+    border: 1px solid $table-border-color;
+  }
+
+  td {
+    border: 1px solid $table-border-color;
+  }
+}
+
+//** Help tables **//
+//** syoussef 5/1/2023: added **//
+.help-props-table {
+  table{
+    width: 100%
+  }
+  tr {
+    td:nth-child(1){
+      width: 20%
+    }
+    td:nth-child(2){
+      width: 32%
+    }
+    td:nth-child(3){
+      width: 20%
+    }
+    td:nth-child(4){
+      width: 9.0%
+    }
+    td:nth-child(5){
+      width: 19.0%
+    }
+  }
+}
+
+.help-methods-table {
+  table{
+    width: 100%
+  }
+  tr {
+    td:nth-child(1){
+      width: 20%
+    }
+    td:nth-child(2){
+      width: 32%
+    }
+    td:nth-child(3){
+      width: 20%
+    }
+    td:nth-child(4){
+      width: 28.0%
+    }
+  }
+}

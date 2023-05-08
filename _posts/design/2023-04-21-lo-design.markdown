@@ -1,0 +1,248 @@
+---
+title:  "LO Design"
+date:   2023-04-22 20:03:35 -0700
+layout: post
+categories: examples
+slug: "lo-design"
+permalink: "/design/:categories/:slug/"
+---
+
+This example goes through the steps of designing and verifying a low-noise amplifier (LNA) for WiFi. The procedure involves exploring the design space, setting target specifications and a power sweep of the designed LNA to verify specifications are met <!--more-->
+
+
+#### Design Constraints
+
+We use typical values for a state-of-the-art WiFi system
+
+{% highlight matlab %}
+%--- Design constraints (FEM typical values)
+lnaGain = Ratio(16,'db');           % LNA max gain
+txEVM = Ratio(-40,'db');            % TX signal EVM
+{% endhighlight %}
+
+
+#### Design Sweeps
+
+Next, we define our design sweeps:
+- Power sweep is large enough to cover a typical range from sensitivity (SENS) to maximum input level (MIL)
+- Total SNR is the SNR eventually observed on the receiver side, including both TX and RX noise
+
+{% highlight matlab %}
+%--- Typical for 20-160MHz channel bandwidth and MCS7-11 modes
+totalSNR = Ratio(26:2:38,'db');     % Total (TX + RX) SNR sweep
+level = Power(-65:5:-5,'dbm');      % Signal power sweep
+{% endhighlight %}
+
+We then calculate LNA SNR as the difference between the total SNR and the TX EVM. For a given signal level and bandwidth, the LNA SNR translates to noise figure (NF)
+
+{% highlight matlab %}
+lnaSNR = Ratio(-10*log10(10.^(-totalSNR.getValue/10) - 10^(+txEVM.getValue/10)), 'db');
+{% endhighlight %}
+
+
+#### Test Case
+
+We are now ready to define our test case. In this example, the design is based on single channel scenario. The carrier defined below corresponds to WiFi channel 52
+
+{% highlight matlab %}
+signalFreq = Frequency(5.25e9,'hz');
+signalBW = Frequency(160e6,'hz');
+signalPower = level;
+signalSNR = Ratio(-txEVM.getValue,'db');
+signalPAPR = Ratio(12,'db');
+testSignal = ComponentCarrier(signalFreq, signalBW, signalPower, signalSNR, signalPAPR);
+testIn = Test(testSignal);
+{% endhighlight %}
+
+
+#### Design Budget
+
+Next, we do some SNR partitioning. In this example, only NF and IIP3 are considered, so we budget for thermal noise and intermodulation distortion. We identify two partitioning cases:
+
+- Toughest (minimum) NF requirement is at low signal levels. At low signal levels, distortion is negligible, so we allocate 100% of the budget to thermal noise.
+- Toughest (maximum) IIP3 requirement is at high signal levels. At high signal levels, thermal noise contribution to the overall SNR is negligible, so we allocate 100% of the budget to third-order intermodulation distortion.
+
+These two impairment budget cases are represented as follows
+
+{% highlight matlab %}
+impairmentBudget.thermalNoise = Ratio([100,nan],'%');
+impairmentBudget.intermod3 = Ratio([nan,100],'%');
+{% endhighlight %}
+
+The budget is then established based on the LNA SNR and the above impairment budget. Since the LNA SNR is a swept variable, we would like to evaluate the above partitioning at every point of the sweep. In order to do that, we set the `sweepFlag` to 1. Later, we can filter the results based on different criteria.
+
+{% highlight matlab %}
+budget = Budget.fromSNR(lnaSNR, impairmentBudget, 1);
+{% endhighlight %}
+
+
+#### Design Scenario
+
+The test case and budget are combined into a design scenario. Again, since the test case includes swept signal power, we would like to evaluate our budget at every point of the sweep, so we set the `sweepFlag` to 1
+
+{% highlight matlab %}
+scenario = Scenario(testIn, budget, 1);
+{% endhighlight %}
+
+
+#### Exploring the Design Space
+
+Finally, we design our LNA
+
+{% highlight matlab %}
+lnaSweep = Amplifier.fromScenario(scenario, lnaGain);
+{% endhighlight %}
+
+To explore the design space, we first extract the NF and IIP3 as a function of signal level for a given total SNR. In this case, we choose total SNR = 32 dB
+
+{% highlight matlab %}
+[~,idx] = scenario.getBudget.select('total',lnaSNR(4),'thermalNoise',lnaSNR(4));
+nf_vs_power = lnaSweep(idx).getSpecs.getNF.convertTo('db');
+
+[~,idx] = scenario.getBudget.select('total',lnaSNR(4),'intermod3',lnaSNR(4));
+iip3_vs_power = lnaSweep(idx).getSpecs.getIIP3.convertTo('dbm');
+{% endhighlight %}
+
+Plotting the results shows, as expected, that higher signal level corresponds to a more relaxed NF requirement, but a more stringent IIP3 requirement
+
+<div class="img-container">
+  <div class="img-html">
+    <img src="{{ site.url }}/assets/img/lna_design_nf_vs_pin.png" alt="LNA design: NF vs input power">
+  </div>
+    <div class="img-html">
+    <img src="{{ site.url }}/assets/img/lna_design_iip3_vs_pin.png" alt="LNA design: IIP3 vs input power">
+    </div>
+</div>
+
+Next, extract the NF and IIP3 as a function of SNR for a given signal level. In this case, we choose two signal levels: -55dBm and -10dBm
+
+{% highlight matlab %}
+[~,idx] = scenario.getTest.getSignals.select('level',level(3));
+lnaTemp = lnaSweep(idx);
+[~,idx] = scenario(idx).getBudget.select('thermalNoise',lnaSNR);
+nf_vs_snr = lnaTemp(idx).getSpecs.getNF.convertTo('db');
+
+[~,idx] = scenario.getTest.getSignals.select('level',level(12));
+lnaTemp = lnaSweep(idx);
+[~,idx] = scenario(idx).getBudget.select('intermod3',lnaSNR);
+iip3_vs_snr = lnaTemp(idx).getSpecs.getIIP3.convertTo('dbm');
+{% endhighlight %}
+
+Plotting the results shows that higher SNR requires lower NF and higher IIP3, an expected result.
+
+<div class="img-container">
+  <div class="img-html">
+    <img src="{{ site.url }}/assets/img/lna_design_nf_vs_snr.png" alt="LNA design: NF vs SNR">
+  </div>
+    <div class="img-html">
+    <img src="{{ site.url }}/assets/img/lna_design_iip3_vs_snr.png" alt="LNA design: IIP3 vs SNR">
+    </div>
+</div>
+
+
+#### Choosing LNA Specifications
+
+From the above results, we choose the following design parameters:
+- Total SNR = 32dB
+- SENS = -55dBm
+- MIL = -10dBm
+
+{% highlight matlab %}
+% Total SNR = 32dB & SENS = -55dBm
+[~,idx] = scenario.getBudget.select('total',lnaSNR(4),'thermalNoise',lnaSNR(4));
+lnaSens = lnaSweep(idx);
+[~,idx] = scenario(idx).getTest.getSignals.select('level',level(3));
+lnaSens = lnaSens(idx);
+
+% Total SNR = 32dB & MIL = -55dBm
+[~,idx] = scenario.getBudget.select('total',lnaSNR(4),'intermod3',lnaSNR(4));
+lnaMil = lnaSweep(idx);
+[~,idx] = scenario(idx).getTest.getSignals.select('level',level(12));
+lnaMil = lnaMil(idx);
+{% endhighlight %}
+
+The above represents two LNA designs, the first `lnaSens` is designed for NF and the second `lnaMil` is designed for IIP3. We can print out the specs of both designs
+
+{% highlight text %}
+lnaSens.printOut()
+lnaMil.printOut()
+{% endhighlight %}
+
+<div class="language-matlab matlab-printout">  
+ Gain [ dB]:    16.0
+   NF [ dB]:     4.0
+Pi1dB [dBm]:     Inf
+ IIP3 [dBm]:     Inf
+ IIP2 [dBm]:     Inf
+
+ Gain [ dB]:    16.0
+   NF [ dB]:    -Inf
+Pi1dB [dBm]:    -5.6
+ IIP3 [dBm]:     4.0
+ IIP2 [dBm]:     Inf
+</div>
+
+The final LNA design is obtained by combining the two designs using `combine()`
+
+{% highlight matlab %}
+lna = [lnaSens; lnaMil];
+lna = lna.combine();
+{% endhighlight %}
+
+To verify, we can print out the specs of the final design
+
+{% highlight text %}
+lna.printOut()
+{% endhighlight %}
+
+<div class="language-matlab matlab-printout">  
+ Gain [ dB]:    16.0
+   NF [ dB]:     4.0
+Pi1dB [dBm]:    -5.6
+ IIP3 [dBm]:     4.0
+ IIP2 [dBm]:     Inf
+</div>
+
+
+#### Power Sweep
+
+To verify the design meets target specifications, we run a power sweep
+
+{% highlight matlab %}
+testOut = lna.process(testIn);
+{% endhighlight %}
+
+From `testIn` and `testOut` we can extract the input and output power levels, respectively, and plot the LNA gain (output-to-input power ratio) versus input power
+
+{% highlight matlab %}
+pin = signalIn.getLevel.convertTo('dbm');
+pout = signalOut.getLevel.convertTo('dbm');
+gain = lna.getSpecs.getGain.convertTo('db');
+{% endhighlight %}
+
+![LNA design: gain vs. input power]({{ site.url }}/assets/img/lna_design_gain_vs_pin.png){:.img-css}
+
+The gain meets the 1-dB compression point target spec of -5.6dBm.
+
+Next, we extract the total SNR of the output signal, as well as the thermal noise and intermodulation individual contributions
+
+{% highlight matlab %}
+snrTotal = signalOut.getSNR.convertTo('db');
+snrThermalNoise = testOut.getSNR('thermalNoise').convertTo('db');
+sd3r = testOut.getSNR('intermod3').convertTo('db');
+{% endhighlight %}
+
+Plotting the results shows that the total SNR meets the target spec of 32dB at the desired sensititivity (-55dBm) and MIL (-10dBm). As expected, at low power levels, the total SNR is dominated by thermal, at high power levels it's dominated by distortion, and in between SNR hits a plateau determined by the TX EVM (-40dBm).
+
+<div class="img-container">
+  <div class="img-html" style="--size: 42%;">
+    <img src="{{ site.url }}/assets/img/lna_design_snr_vs_pin.png" alt="LNA design: SNR vs. input power">
+  </div>
+</div>
+
+### See also
+
+<!-- You can also add images with markdown like this:
+
+![test]({{ site.url }}/assets/img/test.jpg){:.img-css}
+![test]({{ site.url }}/assets/img/test_dark.png){:.img-css} -->

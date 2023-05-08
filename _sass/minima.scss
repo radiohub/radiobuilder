@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+// Define defaults for each variable.
+
+// syoussef 4/22/2023: removed
+//$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+// syoussef 4/22/2023: added
+// $base-font-family: 'Nunito', sans-serif;
+$base-font-family: 'Nunito', sans-serif;
+$code-font-family: 'PT Mono', monospace;
+
+$base-font-size:   12px !default;       // syoussef 4/22/2023: changed from 16
+$small-font-size:  $base-font-size * 0.875 !default;
+
+$base-line-height: 1.5 !default;
+$base-font-weight: 200 !default;        // syoussef 4/22/2023: changed from 400
+
+$medium-font-weight: 400 !default;      // syoussef 4/23/2023: added
+$bold-font-weight: 700 !default;        // syoussef 4/22/2023: added
+
+$spacing-unit:     30px !default;
+
+$text-color:       #ffffff !default;
+$brand-color:      #e2c08d !default;    // syoussef 4/22/2023: updated. green (#3fa757), orange (#e2c08d)
+$background-color: #21252b !default;    // syoussef 4/22/2023: updated
+
+$grey-color:       #9da5b4 !default;
+$grey-color-dark:  darken($grey-color, 25%) !default;
+$grey-color-light: lighten($grey-color, 40%) !default;
+
+$code-background-color: #1b1d23 !default;               // syoussef 4/23/2023: updated
+$code-border-color: $grey-color-dark !default;          // syoussef 4/24/2023: updated
+$code-border-raduis: 6px !default;                      // syoussef 4/23/2023: updated
+
+$img-background-color: $code-background-color !default; // syoussef 4/23/2023: updated
+$img-border-color: $grey-color-dark !default;         // syoussef 4/23/2023: updated
+$img-border-raduis: 6px !default;                       // syoussef 4/24/2023: updated
+
+$table-head-background-color: $code-background-color !default;
+$table-border-color: $grey-color-dark !default;
+$table-text-align: left !default;
+
+// Width of the content area
+$content-width:    700px !default;        // syoussef 4/23/2023: changed from 800px
+
+$on-palm:          600px !default;
+$on-laptop:        800px !default;
+
+// Use media queries like this:
+// @include media-query($on-palm) {
+//   .wrapper {
+//     padding-right: $spacing-unit / 2;
+//     padding-left: $spacing-unit / 2;
+//   }
+// }
+@mixin media-query($device) {
+  @media screen and (max-width: $device) {
+    @content;
+  }
+}
+
+@mixin relative-font-size($ratio) {
+  font-size: $base-font-size * $ratio;
+}
+
+// Import partials.
+@import
+  "minima/base",
+  "minima/layout",
+  "minima/syntax-highlighting"
+;
