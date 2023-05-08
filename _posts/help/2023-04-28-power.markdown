@@ -8,34 +8,75 @@ permalink: "/:categories/:slug/"
 
 ### Syntax
 {% highlight matlab %}
-testSignal = ComponentCarrier(freq, bw, level, snr, papr, [sweepFlag])
+powerObj = Power(value [, unitName] [, refImpedance] [,sweepFlag])
 {% endhighlight %}
+
 
 ### Description
 
-| Parameter    | Type                 | Description                 | Optional | Default |
-| ------------ | -------------------- | --------------------------- | -------- | ------- |
-| `testSignal` | [ComponentCarrier]   | Modulated carrier           | No       |         |
-| `freq`       | [Frequency]          | Carrier frequency           | No       |         |
-| `bw`         | [Frequency]          | Occupied RF bandwidth       | No       |         |
-| `level`      | [Power] or [Voltage] | Carrier level               | No       |         |
-| `snr`        | [Ratio]              | Signal-to-noise Ratio       | No       |         |
-| `papr`       | [Ratio]              | Peak-to-average power ratio | No       |         |
-| `sweepFlag`  | Boolean              | Flag for enabling sweep     | Yes      | `false` |
+| Properties     | Description                     | Type    | Optional | Supported values
+| -------------- | ------------------------------- | ------- | -------- | ----------------
+| `value`        | Power level                     | double  | No       |         
+| `unitName`     | Power unit                      | char    | Yes      | `w` (default) <br/> `dbw` <br/> `dbm`       
+| `refImpedance` | Reference impedance             | double  | Yes      | `50`         
+| `sweepFlag`    | Flag for enabling nested sweeps | logical | Yes      | `0` (default) <br/> `1`
+{: .help-props-table}
+
+
+### Methods
+
+| Method name           | Description                 | Argument(s) | Supported argument values
+| --------------------- | --------------------------- | ----------- | ------------------------------------------
+| `convertTo()`         | Convert to another unit     | unit        | any valid Power or [Voltage][voltage] unit
+| `getValue()`          | Get power level             |             |    
+| `getRefImpedance`     | Get reference impedance     |             |
+| `getSupportedUnits()` | Get supported voltage units |             |
+{: .help-methods-table}
+
 
 ### Examples
+
+<details class="collapsible" markdown="1"><summary>Power sweep</summary>
+
+Define a power sweep in dBm
+
+{% highlight matlab %}
+p = Power([-50:10:-10],'dbm');
+p.getValue
+{% endhighlight %}
+
+<div class="language-matlab matlab-printout">  
+ans =
+
+   -50
+   -40
+   -30
+   -20
+   -10
+</div>
+
+Convert to volts in dB
+
+{% highlight matlab %}
+p.convertTo('dbv').getValue
+{% endhighlight %}
+
+<div class="language-matlab matlab-printout">  
+ans =
+
+  -63.0103
+  -53.0103
+  -43.0103
+  -33.0103
+  -23.0103
+</div>
+
+</details>
 
 
 ### See also
 
-[ComponentCarrier][ComponentCarrier]  
-[Frequency][Frequency]  
-[Power][Power]  
-[Ratio][Ratio]  
-[Voltage][Voltage]  
+[Supported quantities][supported-quantities]   
 
-[ComponentCarrier]: https://jekyllrb.com/docs/home
-[Frequency]: https://jekyllrb.com/docs/home1
-[Power]: https://jekyllrb.com/docs/home
-[Ratio]: https://jekyllrb.com/docs/home
-[Voltage]: https://jekyllrb.com/docs/home
+[supported-quantities]: {{site.baseurl}}{%link _posts/help/2023-05-03-supported-quantities.markdown %}  
+[voltage]: {{site.baseurl}}{%post_url /help/2023-04-28-voltage %}

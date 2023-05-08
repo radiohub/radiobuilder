@@ -9,13 +9,13 @@ permalink: "/:categories/:slug/"
 ### Instantiation
 
 {% highlight matlab %}
-voltage = Voltage(value [, unit])
+voltageObj = Voltage(value [, unitName])
 {% endhighlight %}
 
 | Properties | Description   | Type   | Optional | Supported values
 | ---------- | ------------- | ------ | -------- | ----------------
 | `value`    | Voltage level | double | No       |         
-| `unit`     | Voltage unit  | char   | Yes      | `v` (default) <br/> `dbv`
+| `unitName` | Voltage unit  | char   | Yes      | `v` (default) <br/> `dbv`
 {: .help-props-table}
 
 
@@ -23,7 +23,8 @@ voltage = Voltage(value [, unit])
 
 | Method name           | Description                     | Argument(s)     | Supported argument values
 | --------------------- | ------------------------------- | --------------- | -------------------------------
-| `convertTo()`         | Convert voltage unit            | unit <br/> [reference impedance] | any valid Voltage or [Power] unit
+| `convertTo()`         | Convert to another unit         | unit <br/> [reference impedance] | any valid Voltage or [Power][power] unit
+| `getValue()`          | Get voltage level               |                 |    
 | `getSupportedUnits()` | Get supported voltage units     |                 |
 {: .help-methods-table}
 
@@ -35,41 +36,33 @@ voltage = Voltage(value [, unit])
 Create a voltage sweep
 
 {% highlight matlab %}
-voltage = Voltage([1:10]*1e-3,'v');
-voltage.getValue
+v = Voltage([2:2:10]*1e-3,'v');
+v.getValue
 {% endhighlight %}
 
 <div class="language-matlab matlab-printout">  
 ans =
-    0.0010
+
     0.0020
-    0.0030
     0.0040
-    0.0050
     0.0060
-    0.0070
     0.0080
-    0.0090
     0.0100
 </div>
 
 Convert to decibel scale
 
 {% highlight matlab %}
-voltage.convertTo('dbv').getValue
+v.convertTo('dbv').getValue
 {% endhighlight %}
 
 <div class="language-matlab matlab-printout">  
 ans =
-  -60.0000
+
   -53.9794
-  -50.4576
   -47.9588
-  -46.0206
   -44.4370
-  -43.0980
   -41.9382
-  -40.9151
   -40.0000
 </div>
 

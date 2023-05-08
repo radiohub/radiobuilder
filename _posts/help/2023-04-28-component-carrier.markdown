@@ -9,7 +9,7 @@ permalink: "/:categories/:slug/"
 ### Instantiation
 
 {% highlight matlab %}
-signalOut = ComponentCarrier(freq, bw, level, snr, papr [, sweepFlag])
+signalObj = ComponentCarrier(freq, bw, level, snr, papr [, sweepFlag])
 {% endhighlight %}
 
 | Properties   | Description                     | Type                 | Optional | Supported values
