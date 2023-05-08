@@ -120,7 +120,7 @@ Fig. 1 shows the NF as a function of signal level, for two cases of total SNR, 2
 <div class="img-container">
   <div class="img-html" style="--size: 43%;">
     <figure>
-      <img src="{{ site.url }}{{ site.baseurl }}/assets/img/lna_design_nf_vs_pin.png" alt="LNA design: NF vs input power">
+      <img src="{{ site.baseurl }}/assets/img/lna_design_nf_vs_pin.png" alt="LNA design: NF vs input power">
       <figcaption>LNA NF versus input signal level for different total SNR values</figcaption>
     </figure>
   </div>
@@ -131,7 +131,7 @@ Similarly, Fig. 2 shows the IIP3 as a function of signal level, for the same two
 <div class="img-container">  
   <div class="img-html" style="--size: 43%;">
     <figure>  
-      <img src="{{ site.url }}{{ site.baseurl }}/assets/img/lna_design_iip3_vs_pin.png" alt="LNA design: IIP3 vs input power">
+      <img src="{{ site.baseurl }}/assets/img/lna_design_iip3_vs_pin.png" alt="LNA design: IIP3 vs input power">
       <figcaption>LNA NF versus input signal level</figcaption>
     </figure>
   </div>
@@ -156,7 +156,7 @@ In this case, Fig. 3 and 4 show that higher SNR requires lower NF and higher IIP
 <div class="img-container">
   <div class="img-html" style="--size: 43%;">
     <figure>
-      <img src="{{ site.url }}{{ site.baseurl }}/assets/img/lna_design_nf_vs_snr.png" alt="LNA design: NF vs SNR">
+      <img src="{{ site.baseurl }}/assets/img/lna_design_nf_vs_snr.png" alt="LNA design: NF vs SNR">
       <figcaption>LNA NF versus total SNR</figcaption>
     </figure>
   </div>
@@ -165,7 +165,7 @@ In this case, Fig. 3 and 4 show that higher SNR requires lower NF and higher IIP
 <div class="img-container">
   <div class="img-html" style="--size: 43%;">
     <figure>
-      <img src="{{ site.url }}{{ site.baseurl }}/assets/img/lna_design_iip3_vs_snr.png" alt="LNA design: IIP3 vs SNR">
+      <img src="{{ site.baseurl }}/assets/img/lna_design_iip3_vs_snr.png" alt="LNA design: IIP3 vs SNR">
       <figcaption>LNA IIP3 versus total SNR</figcaption>
     </figure>
   </div>
@@ -256,7 +256,7 @@ pout = signalOut.getLevel.convertTo('dbm');
 <div class="img-container">
   <div class="img-html" style="--size: 43%;">
     <figure>
-      <img src="{{ site.url }}{{ site.baseurl }}/assets/img/lna_design_gain_vs_pin_160M.png" alt="LNA design: gain vs. input power 160MHz">
+      <img src="{{ site.baseurl }}/assets/img/lna_design_gain_vs_pin_160M.png" alt="LNA design: gain vs. input power 160MHz">
       <figcaption>LNA gain versus input signal level</figcaption>
     </figure>
   </div>
@@ -282,7 +282,7 @@ The difference between the minimum SNR (32dB) and the SNR ceiling (40dB) is the 
 <div class="img-container">
   <div class="img-html" style="--size: 43%;">
     <figure>
-      <img src="{{ site.url }}{{ site.baseurl }}/assets/img/lna_design_snr_vs_pin_160M.png" alt="LNA design: SNR vs. input power 160MHz">
+      <img src="{{ site.baseurl }}/assets/img/lna_design_snr_vs_pin_160M.png" alt="LNA design: SNR vs. input power 160MHz">
       <figcaption>Total SNR at LNA output versus input signal level</figcaption>
     </figure>
   </div>
@@ -293,7 +293,7 @@ We also run a power sweep for a 20MHz bandwidth channel. Fig 7. shows the total 
 <div class="img-container">
   <div class="img-html" style="--size: 43%;">
     <figure>
-      <img src="{{ site.url }}{{ site.baseurl }}/assets/img/lna_design_snr_vs_pin_20M_160M.png" alt="LNA design: SNR vs. input power 20MHz and 160MHz">
+      <img src="{{ site.baseurl }}/assets/img/lna_design_snr_vs_pin_20M_160M.png" alt="LNA design: SNR vs. input power 20MHz and 160MHz">
       <figcaption>Total SNR at LNA output versus input signal level for different channel bandwidths</figcaption>
     </figure>
   </div>
