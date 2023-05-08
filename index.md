@@ -12,6 +12,6 @@ Start by learning the [basic concepts][basic-concepts].
 You can also go through the [help section][help-section] and [design examples][design-examples].
 
 
-[basic-concepts]: {% link _posts/help/2023-05-02-basic-concepts.markdown %}  
-[design-examples]: {% link design.md %}  
-[help-section]: {% link help.md %}  
+[basic-concepts]: {{site.baseurl}}{%link _posts/help/2023-05-02-basic-concepts.markdown %}  
+[design-examples]: {{site.baseurl}}{%link design.md %}
+[help-section]: {{site.baseurl}}{%link help.md %}

@@ -13,36 +13,36 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
+
 title: Radio Builder
 author: Shadi Youssef                 # syoussef 4/22/2023: added
 email: your-email@example.com
 github: https://github.com/radiohub   # syoussef 4/22/2023: added
-description: >- # this means to ignore newlines until "baseurl:"
+
+description: >- # this means to ignore newlines until "url:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
-baseurl: "radiobuilder" # the subpath of your site, e.g. /blog
-url: "https://radiohub.github.com/"     # the base hostname & protocol for your site, e.g. http://example.com
+
+url: "https://radiohub.github.com"    # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/radiobuilder"              # the subpath of your site, e.g. /blog syoussef 5/8/2023: forward slash is CRITICAL for local testing!
+
 twitter_username: jekyllrb
 github_username:  jekyll
 
 # Build settings
-# markdown: kramdown
+markdown: kramdown
+kramdown:                         # syoussef 4/23/2023: added
+  input: GFM                      # Github flavor markdown
+  auto_ids: true
+  syntax_highlighter: rouge
 theme: minima
 plugins:
   - jekyll-feed
-#  - jekyll-remote-theme          # syoussef 5/7/2023: Remote themes for Github pages
+#  - jekyll-remote-theme          # syoussef 5/7/2023: trying remote themes for Github pages (did not work)
 
-show_excerpts: true              # syoussef 4/22/2023: added
-excerpt_separator: <!--more-->   # syoussef 4/23/2023: added
-
-# syoussef 4/23/2023: added
-# Markdown Processors
-markdown: kramdown
-kramdown:
-  input: GFM  # Github flavor markdown
-  auto_ids: true
-  syntax_highlighter: rouge
+show_excerpts: true               # syoussef 4/22/2023: added
+excerpt_separator: <!--more-->    # syoussef 4/23/2023: added
 
 header_pages:
   - design.md
