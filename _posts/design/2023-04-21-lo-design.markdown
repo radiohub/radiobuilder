@@ -5,6 +5,7 @@ layout: post
 categories: examples
 slug: "lo-design"
 permalink: "/design/:categories/:slug/"
+publish: false
 ---
 
 This example goes through the steps of designing and verifying a low-noise amplifier (LNA) for WiFi. The procedure involves exploring the design space, setting target specifications and a power sweep of the designed LNA to verify specifications are met <!--more-->

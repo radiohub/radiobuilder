@@ -4,6 +4,7 @@ layout: post
 categories: help classes
 slug: "data-converter"
 permalink: "/:categories/:slug/"
+publish: false
 ---
 
 ### Syntax

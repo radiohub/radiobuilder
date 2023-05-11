@@ -4,6 +4,7 @@ layout: post
 categories: help classes
 slug: "local-oscillator"
 permalink: "/:categories/:slug/"
+publish: false
 ---
 
 ### Syntax

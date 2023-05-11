@@ -13,11 +13,11 @@ permalink: /help/
   {% assign sortedPosts = site.categories.general | sort: 'date' %}
 
   {%- for post in sortedPosts -%}
-
+    {%- if post.publish == true -%}
       <a class="help-link" href="{{ post.url | relative_url }}">
         {{ post.title | escape }}
-      </a>
-
+        </a>
+    {%- endif -%}
   {%- endfor -%}
 
 {%- endif -%}  
@@ -33,11 +33,11 @@ permalink: /help/
   {% assign sortedPosts = site.categories.classes | sort: 'title' %}
 
   {%- for post in sortedPosts -%}
-
+    {%- if post.publish == true -%}
       <a class="help-link" href="{{ post.url | relative_url }}">
         {{ post.title | escape }}
-      </a>
-
+        </a>
+    {%- endif -%}
   {%- endfor -%}
 
 {%- endif -%}

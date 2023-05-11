@@ -4,6 +4,7 @@ layout: help
 categories: help classes
 slug: "frequency"
 permalink: "/:categories/:slug/"
+publish: true
 ---
 
 ### Instantiation

@@ -4,7 +4,7 @@ layout: help
 categories: help classes
 slug: "amplifier"
 permalink: "/:categories/:slug/"
-published: false
+publish: false
 ---
 
 ### Instantiation

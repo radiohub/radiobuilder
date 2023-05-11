@@ -4,6 +4,7 @@ layout: post
 categories: help classes
 slug: "filter"
 permalink: "/:categories/:slug/"
+publish: false
 ---
 
 ### Instantiation

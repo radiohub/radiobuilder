@@ -4,6 +4,7 @@ layout: post
 categories: help classes
 slug: "test"
 permalink: "/:categories/:slug/"
+publish: false
 ---
 
 ### Instantiation

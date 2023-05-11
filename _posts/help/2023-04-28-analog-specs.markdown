@@ -1,10 +1,10 @@
 ---
-title: "ComponentCarrier"
+title: "AnalogSpecs"
 layout: help
 categories: help classes
-slug: "component-carrier"
+slug: "analog-specs"
 permalink: "/:categories/:slug/"
-publish: true
+publish: false
 ---
 
 ### Instantiation

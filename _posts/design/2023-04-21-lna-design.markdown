@@ -5,6 +5,7 @@ layout: post
 categories: examples
 slug: "lna-design"
 permalink: "/design/:categories/:slug/"
+publish: true
 ---
 
 This example shows how to use Radio builder to derive specifications for WiFi low-noise amplifier (LNA). Radio builder is used to<!--more-->:

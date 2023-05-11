@@ -4,6 +4,7 @@ layout: help
 categories: help classes
 slug: "power"
 permalink: "/:categories/:slug/"
+publish: true
 ---
 
 ### Syntax

@@ -4,6 +4,7 @@ layout: help
 categories: help classes
 slug: "utilities"
 permalink: "/:categories/:slug/"
+publish: false
 ---
 
 ### Instantiation

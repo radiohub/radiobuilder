@@ -4,6 +4,7 @@ layout: help
 categories: help classes
 slug: "voltage"
 permalink: "/:categories/:slug/"
+publish: true
 ---
 
 ### Instantiation

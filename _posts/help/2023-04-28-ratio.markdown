@@ -4,6 +4,7 @@ layout: help
 categories: help classes
 slug: "ratio"
 permalink: "/:categories/:slug/"
+publish: true
 ---
 
 ### Instantiation
