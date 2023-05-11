@@ -1,41 +1,46 @@
 ---
 title: "Amplifier"
-layout: post
+layout: help
 categories: help classes
 slug: "amplifier"
 permalink: "/:categories/:slug/"
+published: false
 ---
 
-### Syntax
+### Instantiation
+
 {% highlight matlab %}
-testSignal = ComponentCarrier(freq, bw, level, snr, papr, [sweepFlag])
+ampObj = Amplifier([specs])
+ampObj = Amplifier.fromScenario(scenario, gain [, sweepFlag])
 {% endhighlight %}
 
-### Description
+| Properties   | Description                     | Type                        | Optional | Supported values
+| ------------ | ------------------------------- | --------------------------- | -------- | ----------------
+| `specs`      | RF/analog specifications        | [AnalogSpecs][analog-specs] | Yes      |         
+| `scenario`   | Design scenario including test signals and SNR budgeting | [Scenario][scenario] | No       |         
+| `gain`       | Amplifier gain                  | [Ratio][ratio]              | No       |         
+| `sweepFlag`  | Flag for enabling nested sweeps | logical                     | Yes      | `0` (default) <br/> `1`
+{: .help-props-table}
 
-| Parameter    | Type                 | Description                 | Optional | Default |
-| ------------ | -------------------- | --------------------------- | -------- | ------- |
-| `testSignal` | [ComponentCarrier]   | Modulated carrier           | No       |         |
-| `freq`       | [Frequency]          | Carrier frequency           | No       |         |
-| `bw`         | [Frequency]          | Occupied RF bandwidth       | No       |         |
-| `level`      | [Power] or [Voltage] | Carrier level               | No       |         |
-| `snr`        | [Ratio]              | Signal-to-noise Ratio       | No       |         |
-| `papr`       | [Ratio]              | Peak-to-average power ratio | No       |         |
-| `sweepFlag`  | Boolean              | Flag for enabling sweep     | Yes      | `false` |
+
+### Methods
+
+| Method name | Description                               | Argument(s)     | Supported argument values
+| ----------- | ----------------------------------------- | --------------- | -------------------------
+| `process()` | Process (amplify) input signal(s)         | test            |
+| `combine()` | Combine multiple amplifiers for toughest specifications |   |
+{: .help-methods-table}
+
 
 ### Examples
 
 
 ### See also
 
-[ComponentCarrier][ComponentCarrier]  
-[Frequency][Frequency]  
-[Power][Power]  
-[Ratio][Ratio]  
-[Voltage][Voltage]  
+[AnalogSpecs][analog-specs]  
+[Ratio][ratio]  
+[Scenario][scenario]  
 
-[ComponentCarrier]: https://jekyllrb.com/docs/home
-[Frequency]: https://jekyllrb.com/docs/home1
-[Power]: https://jekyllrb.com/docs/home
-[Ratio]: https://jekyllrb.com/docs/home
-[Voltage]: https://jekyllrb.com/docs/home
+[analog-specs]: {{site.baseurl}}{%post_url /help/2023-04-28-analog-specs %}  
+[ratio]: {{site.baseurl}}{%post_url /help/2023-04-28-ratio %}  
+[scenario]: {{site.baseurl}}{%post_url /help/2023-04-28-scenario %}  
